@@ -7,7 +7,6 @@ export const sizeRanges = [
       "Our largest format. One slab covers a countertop, a wall or a floor with almost no joints, so the stone reads uninterrupted.",
     images: [
       { texture: "calacatta", caption: "Calacatta Borghini · Polished" },
-      { texture: "verde", caption: "Verde Alpi · Matt" },
     ],
   },
   {
@@ -17,7 +16,6 @@ export const sizeRanges = [
       "Ultra-thin and light. Textured metal, stone and wood looks that clad large surfaces with minimal weight.",
     images: [
       { texture: "emperador", caption: "Ferro Corten · Rustic matt" },
-      { texture: "carrara", caption: "Gravel Steel · Bush hammered" },
     ],
   },
   {
@@ -27,7 +25,6 @@ export const sizeRanges = [
       "Long, narrow slabs that run the full length of a kitchen countertop or a staircase in one piece.",
     images: [
       { texture: "nero", caption: "Marquina Nero · Polished" },
-      { texture: "rosa", caption: "Pearl Cream Onyx · Polished and matt" },
     ],
   },
   {
@@ -37,7 +34,6 @@ export const sizeRanges = [
       "Our most compact slab, for kitchen countertops and staircases, including terrazzo looks and carved relief surfaces.",
     images: [
       { texture: "travertine", caption: "Saga Barley · Polished and matt" },
-      { texture: "carrara", caption: "Apuane Statuario · Polished and matt" },
     ],
   },
   {
