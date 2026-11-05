@@ -1,15 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, IBM_Plex_Mono, Ovo } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
+import SiteLoader from "./components/SiteLoader";
+import SmoothScroll from "./components/SmoothScroll";
 
-const geistSans = Geist({
+const ovo = Ovo({
+  variable: "--font-ovo",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+const geist = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  style: "italic",
 });
 
 export const metadata: Metadata = {
@@ -21,9 +37,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${ovo.variable} ${ibmPlexMono.variable} ${geist.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SmoothScroll>
+          <SiteLoader />
+          {children}
+        </SmoothScroll>
+      </body>
     </html>
   );
 }
