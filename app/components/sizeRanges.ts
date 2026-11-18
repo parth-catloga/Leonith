@@ -3,6 +3,7 @@ export const sizeRanges = [
   {
     title: "1600 × 3200 mm",
     thickness: "12 mm thick",
+    nsfCertified: true,
     description:
       "Our largest format. One slab covers a countertop, a wall or a floor with almost no joints, so the stone reads uninterrupted.",
     images: [

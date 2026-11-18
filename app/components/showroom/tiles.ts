@@ -1,4 +1,4 @@
-import { slabs } from "../collection-ideas/slabs";
+import { slabs } from "../slabs";
 
 // The showroom catalogue: every Leonith size, and every tile shown on that
 // size's display. Real tiles only need an entry here and a photo in

@@ -5,12 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import SocialLinks from "./SocialLinks";
+import { contactLink, navigationLinks } from "./navLinks";
 
-const navigationLinks = [
-  { href: "/about", label: "About" },
-  { href: "/showroom", label: "Digital Collection" },
-  { href: "/contact", label: "Contact" },
-];
+const menuLinkClass =
+  "group flex w-fit items-center gap-4 whitespace-nowrap font-display text-[1.6rem] font-normal uppercase tracking-[-0.02em] text-zinc-950 transition-opacity hover:opacity-50 sm:text-5xl lg:text-[1.8rem] xl:text-[2.4rem] 2xl:text-[3rem]";
 
 // Pages that open on a dark full-screen hero, where the bar starts clear.
 const HERO_PAGES = ["/", "/about"];
@@ -55,7 +53,9 @@ export default function SiteNavbar() {
     };
   }, [pathname]);
 
-  const closeMenu = () => setIsMenuOpen(false);
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
   // Pages without a hero start on cream. Dark sections show through, so the bar
   // goes clear with the light logo.
   const isOnCream = (!HERO_PAGES.includes(pathname) || isPastHero) && !isOverDark;
@@ -95,7 +95,7 @@ export default function SiteNavbar() {
               aria-expanded={isMenuOpen}
               aria-controls="site-menu"
               aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-              onClick={() => setIsMenuOpen((open) => !open)}
+              onClick={() => (isMenuOpen ? closeMenu() : setIsMenuOpen(true))}
             >
               <span className="sr-only">Menu</span>
               <span className="relative block h-4 w-8" aria-hidden="true">
@@ -152,7 +152,7 @@ export default function SiteNavbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="group flex w-fit items-center gap-4 whitespace-nowrap font-display text-[1.6rem] font-normal uppercase tracking-[-0.02em] text-zinc-950 transition-opacity hover:opacity-50 sm:text-5xl lg:text-[1.8rem] xl:text-[2.4rem] 2xl:text-[3rem]"
+                  className={menuLinkClass}
                   tabIndex={isMenuOpen ? 0 : -1}
                   onClick={closeMenu}
                 >
@@ -160,6 +160,15 @@ export default function SiteNavbar() {
                   <span className="text-2xl opacity-0 transition-all duration-300 group-hover:translate-x-2 group-hover:opacity-100 sm:text-3xl">→</span>
                 </a>
               ))}
+              <a
+                href={contactLink.href}
+                className={menuLinkClass}
+                tabIndex={isMenuOpen ? 0 : -1}
+                onClick={closeMenu}
+              >
+                {contactLink.label}
+                <span className="text-2xl opacity-0 transition-all duration-300 group-hover:translate-x-2 group-hover:opacity-100 sm:text-3xl">→</span>
+              </a>
             </div>
 
             <div className="mt-12 flex items-center justify-between border-t border-zinc-200 pt-5 text-xs font-medium uppercase tracking-[0.14em] text-zinc-500">

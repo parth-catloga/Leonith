@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { useEffect, useRef, useState } from "react";
-import ArrowFillButton from "@/components/ui/arrow-fill-button";
+import CtaButton from "@/components/ui/cta-button";
 
 const finishes = [
   {
@@ -315,7 +315,7 @@ export default function CollectionSection() {
         />
 
         <div className="relative z-10 flex h-full flex-col px-4 pb-10 pt-32 [text-shadow:0_1px_12px_rgba(0,0,0,0.35)] lg:px-14 lg:pt-40 xl:px-[10%]">
-          <h2 className="[word-spacing:-0.08em] text-3xl lg:text-[2.25rem]">The Finish Collection</h2>
+          <h2 className="font-display text-3xl lg:text-[2.5rem]">The Finish Collection</h2>
           <p
             ref={descriptionRef}
             className="mt-6 min-h-[5.5em] max-w-[38rem] [word-spacing:-0.08em] text-lg leading-snug text-white/90 lg:mt-10 lg:text-[1.35rem]"
@@ -324,25 +324,15 @@ export default function CollectionSection() {
           </p>
 
           <div className="mt-auto max-w-[26rem] xl:ml-[55%] xl:mt-[14svh]" aria-live="polite">
-            <p className="text-xs uppercase tracking-[0.14em] text-[#ff4d5a]">
+            <p className="text-xs uppercase tracking-[0.14em] text-white">
               Finish collection · {activeFinish + 1} / {finishes.length}
             </p>
             <p ref={finishRef} className="mt-2 text-3xl uppercase leading-none lg:text-[2.75rem]">
               {finishes[activeFinish].name}
             </p>
-            <ArrowFillButton
-              btnText="Explore collection"
-              href="/showroom"
-              className="mt-6 [text-shadow:none]"
-              bgColor="#ffffff"
-              textColor="#171717"
-              fillBgColor="#171717"
-              fillTextColor="#ffffff"
-              hoverFillBgColor="#171717"
-              hoverFillTextColor="#ffffff"
-              arrowColor="#ffffff"
-              hoverArrowColor="#ffffff"
-            />
+            <CtaButton href="/showroom" variant="light" className="mt-6 [text-shadow:none]">
+              Explore collection
+            </CtaButton>
           </div>
         </div>
       </div>

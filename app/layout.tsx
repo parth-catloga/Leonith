@@ -1,31 +1,59 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist, IBM_Plex_Mono, Ovo } from "next/font/google";
+import localFont from "next/font/local";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import SiteLoader from "./components/SiteLoader";
 import SmoothScroll from "./components/SmoothScroll";
 
-const ovo = Ovo({
+// Every font is a file in public/fonts (each folder keeps its OFL licence), so neither the build
+// nor visitors ever need to reach Google Fonts. Ovo, Geist, Fraunces and Kaushan Script come from
+// the official Google Fonts repository (github.com/google/fonts).
+
+// Headings (font-display).
+const ovo = localFont({
   variable: "--font-ovo",
-  subsets: ["latin"],
+  src: "../public/fonts/Ovo/Ovo-Regular.ttf",
   weight: "400",
+  fallback: ["Georgia", "serif"],
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
+// Body text, labels and buttons (font-label, font-sans, font-mono).
+const ibmPlexMono = localFont({
   variable: "--font-ibm-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  src: [
+    { path: "../public/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/IBM_Plex_Mono/IBMPlexMono-Italic.ttf", weight: "400", style: "italic" },
+    { path: "../public/fonts/IBM_Plex_Mono/IBMPlexMono-Medium.ttf", weight: "500", style: "normal" },
+    { path: "../public/fonts/IBM_Plex_Mono/IBMPlexMono-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "../public/fonts/IBM_Plex_Mono/IBMPlexMono-Bold.ttf", weight: "700", style: "normal" },
+  ],
+  fallback: ["ui-monospace", "Menlo", "monospace"],
+  adjustFontFallback: false,
 });
 
-const geist = Geist({
+// The home page "Bigger, Bolder, Better" section. Variable font: every weight from 100 to 900.
+const geist = localFont({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  src: "../public/fonts/Geist/Geist-Variable.ttf",
+  weight: "100 900",
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
-const fraunces = Fraunces({
+// Red italic accent words. Variable italic font: every weight from 100 to 900.
+const fraunces = localFont({
   variable: "--font-fraunces",
-  subsets: ["latin"],
+  src: "../public/fonts/Fraunces/Fraunces-Italic-Variable.ttf",
+  weight: "100 900",
   style: "italic",
+  fallback: ["Georgia", "serif"],
+});
+
+// Brush script for the single painted word in the application enquiry section.
+const kaushan = localFont({
+  variable: "--font-kaushan",
+  src: "../public/fonts/Kaushan_Script/KaushanScript-Regular.ttf",
+  weight: "400",
+  fallback: ["cursive"],
 });
 
 export const metadata: Metadata = {
@@ -37,7 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${ovo.variable} ${ibmPlexMono.variable} ${geist.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${ovo.variable} ${ibmPlexMono.variable} ${geist.variable} ${fraunces.variable} ${kaushan.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <SmoothScroll>

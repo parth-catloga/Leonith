@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import CtaButton from "@/components/ui/cta-button";
 import PillLink from "../PillLink";
 import Joystick from "./Joystick";
 import Minimap from "./Minimap";
@@ -173,16 +174,16 @@ export default function Showroom() {
                   )}
                 </div>
                 <div className="flex gap-3">
-                  <button type="button" onClick={() => setOpenTile(tile)} className="rounded-full border border-black/15 px-6 py-3 text-xs uppercase tracking-[0.14em]">
+                  <CtaButton type="button" variant="light" onClick={() => setOpenTile(tile)}>
                     Details
-                  </button>
+                  </CtaButton>
                   <PillLink href={enquiryHref(tile, size)}>{size.comingSoon ? "Get notified" : "Enquire"}</PillLink>
                 </div>
               </div>
             ) : (
-              <button type="button" onClick={() => apiRef.current?.goToZone(size.key)} className="self-start rounded-full bg-black px-6 py-3 text-xs uppercase tracking-[0.14em] text-cream">
+              <CtaButton type="button" className="self-start" onClick={() => apiRef.current?.goToZone(size.key)}>
                 See the tiles
-              </button>
+              </CtaButton>
             )}
           </div>
         )}

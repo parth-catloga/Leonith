@@ -4,12 +4,22 @@ import { gsap } from "gsap";
 import { useLenis } from "lenis/react";
 import { useEffect, useRef, useState } from "react";
 
-const steps = [
+type Segment = { text: string; accent?: boolean };
+
+// `mobileLines` breaks each sentence into shorter lines so it can be set much
+// larger on phones (the longest line is about 7.6em) and still reveal line by line.
+const steps: { label: string; lines: Segment[][]; mobileLines: Segment[][] }[] = [
   {
     label: "Bigger",
     lines: [
       [{ text: "Bigger surfaces, fewer lines," }],
       [{ text: "so every room feels" }],
+      [{ text: "open", accent: true }, { text: " and " }, { text: "endless.", accent: true }],
+    ],
+    mobileLines: [
+      [{ text: "Bigger surfaces," }],
+      [{ text: "fewer lines, so" }],
+      [{ text: "every room feels" }],
       [{ text: "open", accent: true }, { text: " and " }, { text: "endless.", accent: true }],
     ],
   },
@@ -20,6 +30,12 @@ const steps = [
       [{ text: "and a floor that makes a" }],
       [{ text: "statement.", accent: true }],
     ],
+    mobileLines: [
+      [{ text: "Bolder veins," }],
+      [{ text: "richer tones, and" }],
+      [{ text: "a floor that makes" }],
+      [{ text: "a " }, { text: "statement.", accent: true }],
+    ],
   },
   {
     label: "Better",
@@ -27,8 +43,35 @@ const steps = [
       [{ text: "Better stone, better finish," }],
       [{ text: "and a home made to " }, { text: "last.", accent: true }],
     ],
+    mobileLines: [
+      [{ text: "Better stone," }],
+      [{ text: "better finish," }],
+      [{ text: "and a home" }],
+      [{ text: "made to " }, { text: "last.", accent: true }],
+    ],
   },
 ];
+
+function renderLines(lines: Segment[][], key: string) {
+  return lines.map((line, lineIndex) => (
+    <span key={`${key}-${lineIndex}`} className="-mb-[0.28em] block overflow-hidden pb-[0.28em]">
+      <span data-line className="inline-block whitespace-pre-wrap">
+        {line.map((segment) =>
+          segment.accent ? (
+            <span
+              key={segment.text}
+              className="font-[family-name:var(--font-fraunces)] text-[1.17em] font-normal italic leading-none text-[#E20114]"
+            >
+              {segment.text}
+            </span>
+          ) : (
+            segment.text
+          ),
+        )}
+      </span>
+    </span>
+  ));
+}
 
 export default function ExpertiseSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -129,26 +172,11 @@ export default function ExpertiseSection() {
           <div className="lg:max-w-[70%]">
             <div
               ref={copyRef}
-              className="min-h-[3.5em] text-[clamp(1.75rem,5.05vw,5.5rem)] font-light leading-[1.16] tracking-[-0.07em]"
+              // Phones get a much larger sentence so it fills the space above the words.
+              className="min-h-[3.5em] text-[clamp(2.2rem,11.5vw,3.75rem)] lg:text-[clamp(1.75rem,5.05vw,5.5rem)] font-light leading-[1.16] tracking-[-0.07em]"
             >
-              {steps[activeStep].lines.map((line, lineIndex) => (
-                <span key={`${activeStep}-${lineIndex}`} className="-mb-[0.28em] block overflow-hidden pb-[0.28em]">
-                  <span data-line className="inline-block whitespace-pre-wrap">
-                    {line.map((segment) =>
-                      segment.accent ? (
-                        <span
-                          key={segment.text}
-                          className="font-[family-name:var(--font-fraunces)] text-[1.17em] font-normal italic leading-none text-[#E20114]"
-                        >
-                          {segment.text}
-                        </span>
-                      ) : (
-                        segment.text
-                      ),
-                    )}
-                  </span>
-                </span>
-              ))}
+              <div className="max-lg:hidden">{renderLines(steps[activeStep].lines, `${activeStep}-desktop`)}</div>
+              <div className="lg:hidden">{renderLines(steps[activeStep].mobileLines, `${activeStep}-mobile`)}</div>
             </div>
           </div>
 
@@ -161,7 +189,9 @@ export default function ExpertiseSection() {
                 aria-pressed={stepIndex === activeStep}
                 onClick={() => scrollToStep(stepIndex)}
               >
-                <span className="block whitespace-nowrap text-black/20">{step.label}</span>
+                {/* Solid grey (black at 20% over cream), not text-black/20: the tight tracking makes
+                    letters overlap, and a see-through colour paints the overlaps darker. */}
+                <span className="block whitespace-nowrap text-[#ccc9c4]">{step.label}</span>
                 {/* Wipes in from the top, like ink filling the word. */}
                 <span
                   className={`absolute inset-x-[-0.1em] -inset-y-[0.1em] whitespace-nowrap px-[0.1em] py-[0.1em] text-black transition-[clip-path] duration-[1400ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:[clip-path:inset(0)] ${

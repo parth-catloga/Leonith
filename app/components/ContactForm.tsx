@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import CtaButton from "@/components/ui/cta-button";
 import { contactDetails } from "./contactDetails";
 
 const fields = [
@@ -75,12 +76,7 @@ export default function ContactForm() {
       </label>
 
       <div className="flex flex-wrap items-center gap-6 sm:col-span-2">
-        <button
-          type="submit"
-          className="h-12 rounded-full bg-black px-10 text-xs uppercase tracking-[0.14em] text-white transition-opacity hover:opacity-80"
-        >
-          Send
-        </button>
+        <CtaButton type="submit">Send</CtaButton>
         {isSent && (
           <p role="status" className="text-xs tracking-[-0.03em] text-black/60">
             Your email app should open with the enquiry ready to send.

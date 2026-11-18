@@ -22,6 +22,31 @@
   }
 }
 
+/* "Painted" lettering in the brand colours: near-black letters with a band of Leonith red
+   sweeping across every 3 s. Same gradient structure and timing as the reference
+   ("Talk to us" on doubble.group), recoloured from copper to black and red. */
+.text-painted {
+  background-image: linear-gradient(271deg, #1c1c1c 0%, #7a000b 3%, #e20114 6%, #7a000b 9%, #1c1c1c 12%, #1c1c1c 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: painted-shine 3s linear infinite;
+}
+
+@keyframes painted-shine {
+  0% {
+    background-position: 200% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-painted {
+    animation: none;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -32,29 +57,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-ibm-plex-mono), monospace;
-}
-
-@media (hover: hover) {
-  .arrow-fill-button[data-fill-on-hover="true"]:hover .arrow-fill-button__fill {
-    background: var(--btn-fill-bg-hover);
-    inset: 0;
-  }
-
-  .arrow-fill-button[data-fill-on-hover="true"]:hover .arrow-fill-button__copy {
-    clip-path: inset(0);
-    color: var(--btn-fill-text-hover);
-  }
-
-  .arrow-fill-button[data-fill-on-hover="true"]:hover .arrow-fill-button__circle {
-    background: var(--btn-fill-bg-hover);
-    color: var(--btn-arrow-hover);
-  }
-
-  .arrow-fill-button[data-fill-on-hover="true"]:hover .arrow-fill-button__arrow-in {
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  .arrow-fill-button[data-fill-on-hover="true"]:hover .arrow-fill-button__arrow-out {
-    transform: translate(70%, -50%) scale(0);
-  }
 }
